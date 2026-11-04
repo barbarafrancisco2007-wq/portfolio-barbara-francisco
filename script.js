@@ -15,24 +15,12 @@ nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   menuButton.textContent = '☰';
 }));
 
-document.querySelector('#contact-form').addEventListener('submit', async event => {
+document.querySelector('#contact-form').addEventListener('submit', event => {
   event.preventDefault();
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const request = `Pedido de ilustração — ${data.get('name')}\nEmail: ${data.get('email')}\nProjeto: ${data.get('service')}\n\n${data.get('message')}`;
+  const data = new FormData(event.currentTarget);
+  const subject = `Pedido de ilustração — ${data.get('service')}`;
+  const body = `Olá, Bárbara!\n\nO meu nome: ${data.get('name')}\nO meu email: ${data.get('email')}\nProjeto: ${data.get('service')}\n\nSobre o projeto:\n${data.get('message')}`;
   const status = document.querySelector('#form-status');
-  try {
-    await navigator.clipboard.writeText(request);
-    status.textContent = 'Pedido copiado! Cola-o numa mensagem de email e envia-o para a Bárbara.';
-  } catch {
-    const helper = document.createElement('textarea');
-    helper.value = request;
-    helper.style.position = 'fixed';
-    helper.style.opacity = '0';
-    document.body.append(helper);
-    helper.select();
-    document.execCommand('copy');
-    helper.remove();
-    status.textContent = 'Pedido preparado e copiado. Cola-o numa mensagem para a Bárbara.';
-  }
+  status.textContent = 'A abrir o teu programa de email. Se não abrir, escreve para barbarafrancisco.ilustradora@gmail.com.';
+  window.location.href = `mailto:barbarafrancisco.ilustradora@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
