@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://barbarafrancisco2007-wq.github.io/portfolio-barbara-francisco/sitemap.xml
